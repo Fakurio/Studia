@@ -46,9 +46,3 @@ while True:
     if g2_pozycja >= 19:
         print("\nGracz 2 wygrał")
         break
-
-    # p2_position, p1_position = movement(p2_position,p1_position,2,1)
-    # print("P2 position: "+str(p2_position))
-    # if p2_position >= 19:
-    #     print("\nGracz 2 wygrał")
-    #     break
