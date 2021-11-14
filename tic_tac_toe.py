@@ -25,16 +25,25 @@ def make_list_of_free_fields():
                 free_fields.append((i,j))
     return free_fields
 
-def enter_move():
+def select_sign():
+    while True:
+        sign = input("Select your sign ('X' or 'O'): ")
+        if sign != 'X' and sign !='O':
+            print("You have selected a wrong sign")
+        else:
+            break
+    return sign
+
+def enter_move(sign):
     free_fields = make_list_of_free_fields()
     if len(free_fields) == 0:
         return 0
     while True:
         flag = False
-        field_number = int(input("Select a field to draw a circle ")) 
+        field_number = int(input("Select a field to draw a sign ")) 
         for i, j in free_fields:
             if board[i][j] == field_number:
-                board[i][j] = "O"
+                board[i][j] = sign
                 flag = True
                 break
 
@@ -43,19 +52,16 @@ def enter_move():
         else:
             print("You have selected a wrong field")
 
-def draw_move():
-    if board[1][1] == 5:
-        board[1][1] = "X"
-    else:
-        free_fields = make_list_of_free_fields()
-        if len(free_fields) == 0:
-            return 0
-        while True:
-            x = randint(0,2)
-            y = randint(0,2)
-            if (x,y) in free_fields:
-                board[x][y] = "X"
-                break
+def draw_move(sign):
+    free_fields = make_list_of_free_fields()
+    if len(free_fields) == 0:
+        return 0
+    while True:
+        x = randint(0,2)
+        y = randint(0,2)
+        if (x,y) in free_fields:
+            board[x][y] = sign
+            break
 
 def victory_for(sign):
     flag = False
@@ -75,25 +81,31 @@ def victory_for(sign):
 
 def game():
     flag = False
+    user_sign = select_sign()
+    if user_sign == "X":
+        computer_sign = "O"
+    else:
+        computer_sign = "X"
     while len(make_list_of_free_fields())!=0:
-        draw_move()
+        draw_move(computer_sign)
         display_board()
-        if victory_for("X"):
+        if victory_for(computer_sign):
             print("Computer wins")
             flag = True
             break
-        enter_move()
+        enter_move(user_sign)
         display_board()
-        if victory_for("O"):
+        if victory_for(user_sign):
             print("You win")
             flag = True
             break
     if not flag:
         print("Tie")
     
-    
 
 game()
+
+
 
 
 
