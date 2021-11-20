@@ -1,10 +1,7 @@
 while True:
-    try:
-        rule = int(input("Podaj regułę jako cyfrę z przedziału 0-255: "))
-    except:
-        print("Podano złą wartość")
-    else:
-        break
+    try:    rule = int(input("Podaj regułę jako cyfrę z przedziału 0-255: "))
+    except: print("Podano złą wartość")
+    else:   break
 automat_length = 81
 main_automat = [" " for i in range(automat_length)]
 pom_automat = [" " for i in range(automat_length)]
