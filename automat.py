@@ -1,3 +1,5 @@
+#Automat komórkowy jednowymiarowy z jedną komórką żywą na start
+
 rule = int(input("Podaj regułę: "))
 automat_length = 81
 main_automat = [" " for i in range(automat_length)]
@@ -5,7 +7,7 @@ pom_automat = [" " for i in range(automat_length)]
 
 def initial_state(line, line_lenght):
     line[line_lenght//2] = "o"
-    for i in range(line_lenght):
+    for i in range(line_lenght):            
         print(line[i],end=" ")
     print("\n")
 
