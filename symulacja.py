@@ -1,4 +1,5 @@
-from cProfile import label
+#Symulacja fali harmonicznej
+
 from matplotlib import pyplot as plt
 from matplotlib.animation import FuncAnimation
 import numpy as np
