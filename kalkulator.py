@@ -1,4 +1,3 @@
-from glob import glob
 import tkinter as tk
 from tkinter import messagebox
 
