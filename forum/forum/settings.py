@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-mqf&h994)zmk@3a(5z02ddzj#ksfi=1#(as15+*eq(clmri$%d'
+SECRET_KEY = 'yo00(ng6%v+05qd5s2cg6*%l1(bku98j)h&-48o#4#*=&n73i6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5'
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,8 +82,12 @@ WSGI_APPLICATION = 'forum.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'da7ljfq83qsp3h',
+        'USER': 'jktqfeczhwdayp',
+        'PASSWORD': '2c1c38f7574e6405232d7732e6b78548119d63e3d55b78e8af95ea1a4a384a4c',
+        'PORT': '5432',
+        'HOST': 'ec2-3-248-121-12.eu-west-1.compute.amazonaws.com',
     }
 }
 
@@ -124,3 +132,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = "/login"
