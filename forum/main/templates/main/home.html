@@ -2,6 +2,8 @@
 
 {% block title %}Home Page{% endblock %}
 
+{% load is_banned %}
+
 {% block content %}
     {% for post in posts %}
         <div class="card mt-2">
@@ -12,11 +14,19 @@
                     <p>{{post.description}}</p>
                 </div>
                 <div>
-                    {% if user == post.author %}
+                    {% if user == post.author or perms.main.delete_post %}
                         <form method="POST">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger" name="post-id" value="{{post.id}}">Delete</button>
                         </form>
+                    {% endif %}
+                    {% if user.is_staff %}
+                        {% if post.author.id|is_banned %}    
+                            <form method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-warning" name="user-id" value="{{post.author.id}}">Ban</button>
+                            </form>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
