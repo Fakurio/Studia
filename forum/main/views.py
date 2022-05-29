@@ -3,6 +3,7 @@ from .forms import PostForm, RegisterForm
 from django.contrib.auth import login
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
 from .models import Post
 # Create your views here.
 
@@ -25,6 +26,7 @@ def home(response):
                 group.user_set.remove(user)
                 group = Group.objects.get(name="mod")
                 group.user_set.remove(user)
+                messages.add_message(response, messages.SUCCESS, "User was successfully banned")
 
     return render(response, "main/home.html", {"posts": posts})
 
@@ -52,6 +54,7 @@ def sign_up(response):
             user = form.save()
             login(response, user)
             return redirect('/home')
+
     else:
         form = RegisterForm()
 
