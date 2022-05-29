@@ -1,7 +1,8 @@
 *.log
 *.pot
 *.pyc
-__pycache__
+forum/forum/__pycache__
+forum/main/__pycache__
 db.sqlite3
 media
 .env
