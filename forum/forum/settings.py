@@ -19,8 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'yo00(ng6%v+05qd5s2cg6*%l1(bku98j)h&-48o#4#*=&n73i6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,14 +78,21 @@ WSGI_APPLICATION = 'forum.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
+SECRET_KEY = env("SECRET_KEY")
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd9o12ee9p9mfe2',
-        'USER': 'qnitkzlgsjxucm',
-        'PASSWORD': 'cd7446fe89ab121cb06d0f84fc500c5bede47f0b4bd453224e064975ebcfe204',
-        'PORT': '5432',
-        'HOST': 'ec2-34-242-8-97.eu-west-1.compute.amazonaws.com',
+        'NAME': env("DATABASE_NAME"),
+        'USER': env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
+        'PORT': env("DATABASE_PORT"),
+        'HOST': env("DATABASE_HOST"),
     }
 }
 
