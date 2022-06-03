@@ -3,6 +3,7 @@
 {% block title %}Home Page{% endblock %}
 
 {% load is_banned %}
+{% load is_mod %}
 
 {% block content %}
     {% for post in posts %}
@@ -21,11 +22,25 @@
                         </form>
                     {% endif %}
                     {% if user.is_staff %}
-                        {% if post.author.id|is_banned %}    
+                        {% if post.author.id|is_not_banned and post.author.id != user.id %}    
                             <form method="POST">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-warning" name="user-id" value="{{post.author.id}}">Ban</button>
+                                <button type="submit" class="btn btn-warning"  name="user-id" value="{{post.author.id}}">Ban</button>
                             </form>
+                        {% endif %}
+
+                        {% if post.author.id|is_not_banned and post.author.id != user.id and not post.author.id|is_mod %}
+                            <form method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary" name="make-mod" value="{{post.author.id}}">Make mod</button>
+                            </form>
+                        {% endif %}
+
+                        {% if not post.author.id|is_not_banned %}    
+                            <form method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-warning" name="un-user-id" value="{{post.author.id}}">Unban</button>
+                            </form> 
                         {% endif %}
                     {% endif %}
                 </div>

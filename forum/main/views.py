@@ -14,6 +14,8 @@ def home(response):
     if response.method == "POST":
         post_id = response.POST.get("post-id")
         user_id = response.POST.get("user-id")
+        un_user_id = response.POST.get("un-user-id")
+        make_mod = response.POST.get("make-mod")
 
         if post_id:
             post = Post.objects.get(id=post_id)
@@ -27,6 +29,21 @@ def home(response):
                 group = Group.objects.get(name="mod")
                 group.user_set.remove(user)
                 messages.add_message(response, messages.SUCCESS, "User was successfully banned")
+        elif un_user_id:
+            user = User.objects.get(id=un_user_id)
+            if user and response.user.is_staff:
+                group = Group.objects.get(name=user.profile.last_group)
+                group.user_set.add(user)
+                messages.add_message(response, messages.SUCCESS, "User was successfully unbanned")
+        elif make_mod:
+            user = User.objects.get(id=make_mod)
+            if user and response.user.is_staff:
+                group = Group.objects.get(name="mod")
+                group.user_set.add(user)
+                user.profile.last_group = "mod"
+                user.save()
+                messages.add_message(response, messages.SUCCESS, "New moderator was added")
+
 
     return render(response, "main/home.html", {"posts": posts})
 
@@ -52,6 +69,7 @@ def sign_up(response):
         form = RegisterForm(response.POST)
         if form.is_valid():
             user = form.save()
+            user.profile.last_group = "default"
             login(response, user)
             return redirect('/home')
 
