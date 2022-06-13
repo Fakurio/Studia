@@ -3,6 +3,7 @@
 import requests
 import json
 import os
+import sys
 
 key_names = ["id", "brand", "model", "production_year", "convertible"]
 key_widths = [10, 15, 10, 20, 15]
@@ -244,12 +245,12 @@ def update_car():
 while True:
     if not check_server():
         print("Server is not responding - quitting!")
-        exit(1)
+        sys.exit(1)
     print_menu()
     choice = read_user_choice()
     if choice == 0:
         print("Bye!")
-        exit(0)
+        sys.exit(0)
     elif choice == 1:
         os.system("cls")
         list_cars()
