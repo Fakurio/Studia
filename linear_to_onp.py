@@ -25,7 +25,7 @@ def to_onp(wyrazenie):
             stos.pop()
         else:
             i = len(stos)-1
-            while i>-1 and stos[i] in operatory.keys():
+            while i>-1 and stos[i] in operatory:
                 if operatory[stos[i]] >= operatory[znak]:
                     wynik += stos.pop() + " "
                 i -= 1
